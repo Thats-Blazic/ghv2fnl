@@ -1,0 +1,33 @@
+.headerContainer {
+  width: 100%;
+  background: black;
+  overflow: hidden;
+  padding: 30px 0;
+  margin-top: 80px;
+}
+
+.marquee {
+  white-space: nowrap;
+  position: relative;
+  animation: marquee 30s linear infinite;
+  display: flex;
+}
+
+.marquee span {
+  font-size: 96px;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  padding-right: 0;
+  display: inline-block;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+} 

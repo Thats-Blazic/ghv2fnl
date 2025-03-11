@@ -1,0 +1,53 @@
+.stickyContainer {
+  height: 100vh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+}
+
+.stickySection {
+  height: 100vh;
+  scroll-snap-align: start;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stickyContent {
+  width: 100%;
+  padding: 2rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Add smooth scrolling to the container */
+.stickyContainer {
+  scroll-behavior: smooth;
+}
+
+/* Style the sections with a subtle gradient background */
+.stickySection:nth-child(odd) {
+  background: linear-gradient(to bottom, #000000, #111111);
+}
+
+.stickySection:nth-child(even) {
+  background: linear-gradient(to bottom, #111111, #000000);
+}
+
+/* Add hover effect to sections */
+.stickySection:hover .stickyContent {
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
+} 
