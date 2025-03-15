@@ -37,21 +37,24 @@ export default function Navbar() {
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-200 ${
       scrolled 
-        ? 'bg-black/20 backdrop-blur-lg' 
-        : 'bg-black/10 backdrop-blur-sm'
+        ? 'bg-black/60 backdrop-blur-xl' 
+        : 'bg-black/40'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-24">
-          <Link href="/" className="relative">
-            <Image
-              src="/projects/logo.png"
-              alt="Logo"
-              width={150}
-              height={40}
-              className="w-auto h-8 md:h-12 transition-opacity duration-200 hover:opacity-80"
-              priority
-              quality={90}
-            />
+          <Link href="/" className="relative z-10">
+            <div className="relative">
+              <Image
+                src="/projects/logo.png"
+                alt="Logo"
+                width={150}
+                height={40}
+                className="w-auto h-8 md:h-12 transition-opacity duration-200 hover:opacity-80"
+                priority
+                quality={100}
+                unoptimized={true}
+              />
+            </div>
           </Link>
           
           {/* Desktop Navigation */}
@@ -85,15 +88,15 @@ export default function Navbar() {
             className="md:hidden relative w-10 h-10 flex items-center justify-center rounded-xl bg-violet-500/5 hover:bg-violet-500/10 transition-all duration-200 border border-violet-500/10 hover:border-violet-500/20 group"
             aria-label="Toggle menu"
           >
-            <div className="flex flex-col items-center justify-center w-5 h-5">
-              <span className={`w-5 h-[2px] bg-gradient-to-r from-violet-400 to-violet-500 rounded-full transform transition-all duration-200 ease-in-out ${
-                isMenuOpen ? 'rotate-45 translate-y-[6px]' : ''
+            <div className="relative flex flex-col items-center justify-center w-5 h-5 overflow-hidden">
+              <span className={`absolute w-5 h-[2px] bg-gradient-to-r from-violet-400 to-violet-500 rounded-full transform transition-transform duration-300 ease-in-out ${
+                isMenuOpen ? 'translate-y-0 rotate-45' : '-translate-y-1.5'
               }`} />
-              <span className={`w-3 h-[2px] bg-gradient-to-r from-violet-400 to-violet-500 rounded-full transform transition-all duration-200 ease-in-out my-[5px] ${
-                isMenuOpen ? 'opacity-0 translate-x-2' : 'group-hover:w-5'
+              <span className={`absolute w-5 h-[2px] bg-gradient-to-r from-violet-400 to-violet-500 rounded-full transform transition-all duration-200 ease-in-out ${
+                isMenuOpen ? 'opacity-0 -translate-x-full' : 'opacity-100 w-3 group-hover:w-5'
               }`} />
-              <span className={`w-5 h-[2px] bg-gradient-to-r from-violet-400 to-violet-500 rounded-full transform transition-all duration-200 ease-in-out ${
-                isMenuOpen ? '-rotate-45 -translate-y-[6px]' : ''
+              <span className={`absolute w-5 h-[2px] bg-gradient-to-r from-violet-400 to-violet-500 rounded-full transform transition-transform duration-300 ease-in-out ${
+                isMenuOpen ? 'translate-y-0 -rotate-45' : 'translate-y-1.5'
               }`} />
             </div>
           </button>
@@ -154,7 +157,7 @@ function NavLink({
       } ${
         active
           ? 'text-white bg-gradient-to-r from-violet-600/20 via-violet-500/20 to-violet-600/20 border border-violet-500/50'
-          : 'text-white/70 hover:text-white border border-transparent hover:border-violet-500/20 hover:bg-violet-500/10'
+          : 'text-white/70  hover:text-white border border-transparent hover:border-violet-500/20 hover:bg-violet-500/10'
       }`}
     >
       <i className={`fa-solid ${icon} ${

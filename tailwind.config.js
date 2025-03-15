@@ -16,7 +16,8 @@ module.exports = {
         'slow-spin': 'spin 20s linear infinite',
         'pulse': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'scroll': "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
-        'shimmer': "shimmer 2s linear infinite"
+        'shimmer': "shimmer 2s linear infinite",
+        'shine': 'shine 2s ease-in-out infinite',
       },
       keyframes: {
         pulse: {
@@ -35,6 +36,10 @@ module.exports = {
           to: {
             backgroundPosition: "-200% 0"
           }
+        },
+        shine: {
+          '0%': { backgroundPosition: '200% center' },
+          '100%': { backgroundPosition: '-200% center' },
         }
       },
     },

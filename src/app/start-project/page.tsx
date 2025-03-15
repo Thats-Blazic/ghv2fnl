@@ -55,15 +55,6 @@ const AnimatedBackground = () => {
 };
 
 export default function StartProjectPage() {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-
   const [selectedService, setSelectedService] = useState<string | null>(null);
   const [selectedBudget, setSelectedBudget] = useState<string | null>(null);
   const [selectedTimeline, setSelectedTimeline] = useState<string | null>(null);
@@ -202,22 +193,16 @@ export default function StartProjectPage() {
   );
 
   return (
-    <main className="min-h-screen bg-black text-white relative" ref={containerRef}>
+    <main className="min-h-screen bg-black text-white relative">
       {/* Enhanced Background Effects - Now applied to entire page */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(98,0,255,0.15),transparent_70%)]" />
         <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black" />
         <div className="absolute inset-0 bg-grid-white/[0.02] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
         
-        {/* Animated gradient orbs */}
-        <motion.div 
-          style={{ y, opacity }}
-          className="absolute top-20 -left-4 w-96 h-96 bg-violet-600 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-blob"
-        />
-        <motion.div 
-          style={{ y, opacity }}
-          className="absolute top-20 -right-4 w-96 h-96 bg-violet-600 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-blob animation-delay-2000"
-        />
+        {/* Static gradient orbs */}
+        <div className="absolute top-20 -left-4 w-96 h-96 bg-violet-600 rounded-full mix-blend-multiply filter blur-[128px] opacity-20" />
+        <div className="absolute top-20 -right-4 w-96 h-96 bg-violet-600 rounded-full mix-blend-multiply filter blur-[128px] opacity-20" />
 
         {/* Client-side only animated lines */}
         <AnimatedBackground />
@@ -315,22 +300,12 @@ export default function StartProjectPage() {
       <section className="py-20 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <motion.h2 
-              className="text-3xl md:text-5xl font-bold mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
+            <h2 className="text-3xl md:text-5xl font-bold mb-6">
               1. Choose Your Service
-            </motion.h2>
-            <motion.p 
-              className="text-lg text-white/60 max-w-2xl mx-auto"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
+            </h2>
+            <p className="text-lg text-white/60 max-w-2xl mx-auto">
               Select the service that best matches your project needs
-            </motion.p>
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -338,9 +313,6 @@ export default function StartProjectPage() {
               <motion.button
                 key={service.id}
                 onClick={() => setSelectedService(service.id)}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
                 whileHover={{ y: -8 }}
                 className={`group relative p-8 rounded-2xl border backdrop-blur-sm transition-all duration-300 text-left ${
                   selectedService === service.id
@@ -406,22 +378,12 @@ export default function StartProjectPage() {
       <section className="py-20 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <motion.h2 
-              className="text-3xl md:text-5xl font-bold mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
+            <h2 className="text-3xl md:text-5xl font-bold mb-6">
               2. Select Your Budget
-            </motion.h2>
-            <motion.p 
-              className="text-lg text-white/60 max-w-2xl mx-auto"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
+            </h2>
+            <p className="text-lg text-white/60 max-w-2xl mx-auto">
               Choose a budget range that works for your project
-            </motion.p>
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -429,9 +391,6 @@ export default function StartProjectPage() {
               <motion.button
                 key={budget.id}
                 onClick={() => setSelectedBudget(budget.id)}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
                 whileHover={{ y: -8 }}
                 className={`group relative p-8 rounded-2xl border backdrop-blur-sm transition-all duration-300 text-left ${
                   selectedBudget === budget.id
@@ -466,22 +425,12 @@ export default function StartProjectPage() {
       <section className="py-20 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12">
-            <motion.h2 
-              className="text-3xl md:text-5xl font-bold mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
+            <h2 className="text-3xl md:text-5xl font-bold mb-6">
               3. Choose Your Timeline
-            </motion.h2>
-            <motion.p 
-              className="text-lg text-white/60 max-w-2xl"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
+            </h2>
+            <p className="text-lg text-white/60 max-w-2xl">
               Select how quickly you need your project completed
-            </motion.p>
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -489,9 +438,6 @@ export default function StartProjectPage() {
               <motion.button
                 key={timeline.id}
                 onClick={() => setSelectedTimeline(timeline.id)}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
                 whileHover={{ y: -8 }}
                 className={`group relative p-8 rounded-2xl border backdrop-blur-sm transition-all duration-300 text-left ${
                   selectedTimeline === timeline.id
@@ -593,36 +539,23 @@ export default function StartProjectPage() {
           <div className="max-w-3xl mx-auto">
             {selectedService && selectedBudget && selectedTimeline ? (
               <div className="text-center">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="mb-8 p-8 rounded-2xl bg-gradient-to-b from-violet-600/10 via-violet-500/5 to-violet-600/10 border border-violet-500/20 backdrop-blur-sm relative overflow-hidden group"
-                >
+                <div className="mb-8 p-8 rounded-2xl bg-gradient-to-b from-violet-600/10 via-violet-500/5 to-violet-600/10 border border-violet-500/20 backdrop-blur-sm relative overflow-hidden group">
                   {/* Background Effects */}
                   <div className="absolute inset-0 bg-grid-white/[0.02] [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_100%)]" />
                   <div className="absolute -top-24 -right-24 w-64 h-64 bg-violet-500/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                   <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-violet-500/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                   
                   <div className="relative">
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1 }}
-                      className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-sm font-medium mb-6"
-                    >
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-sm font-medium mb-6">
                       <i className="fas fa-check-circle text-violet-400" />
                       Ready to Launch
-                    </motion.div>
+                    </div>
                     
                     <h3 className="text-3xl font-bold mb-8 bg-gradient-to-r from-white via-violet-200 to-white bg-clip-text text-transparent">Project Summary</h3>
                     
                     <div className="space-y-6 text-left max-w-lg mx-auto">
-                      <motion.div 
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.2 }}
-                        className="flex items-center gap-6 p-4 rounded-xl bg-violet-500/5 border border-violet-500/10 hover:border-violet-500/20 transition-colors group/item"
-                      >
+                      <div className="flex items-center gap-6 p-4 rounded-xl bg-violet-500/5 border border-violet-500/10 hover:border-violet-500/20 transition-colors group/item">
+                        {/* Service summary content */}
                         <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-violet-400 to-fuchsia-400 p-0.5">
                           <div className="w-full h-full rounded-lg bg-black/40 flex items-center justify-center">
                             <i className="fas fa-palette text-lg" />
@@ -632,14 +565,10 @@ export default function StartProjectPage() {
                           <p className="text-white/60 text-sm mb-1">Service</p>
                           <p className="font-medium text-lg">{services.find(s => s.id === selectedService)?.title}</p>
                         </div>
-                      </motion.div>
+                      </div>
 
-                      <motion.div 
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.3 }}
-                        className="flex items-center gap-6 p-4 rounded-xl bg-violet-500/5 border border-violet-500/10 hover:border-violet-500/20 transition-colors group/item"
-                      >
+                      <div className="flex items-center gap-6 p-4 rounded-xl bg-violet-500/5 border border-violet-500/10 hover:border-violet-500/20 transition-colors group/item">
+                        {/* Budget summary content */}
                         <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-violet-400 to-fuchsia-400 p-0.5">
                           <div className="w-full h-full rounded-lg bg-black/40 flex items-center justify-center">
                             <i className="fas fa-wallet text-lg" />
@@ -649,14 +578,10 @@ export default function StartProjectPage() {
                           <p className="text-white/60 text-sm mb-1">Budget Range</p>
                           <p className="font-medium text-lg">{budgetRanges.find(b => b.id === selectedBudget)?.range}</p>
                         </div>
-                      </motion.div>
+                      </div>
 
-                      <motion.div 
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.4 }}
-                        className="flex items-center gap-6 p-4 rounded-xl bg-violet-500/5 border border-violet-500/10 hover:border-violet-500/20 transition-colors group/item"
-                      >
+                      <div className="flex items-center gap-6 p-4 rounded-xl bg-violet-500/5 border border-violet-500/10 hover:border-violet-500/20 transition-colors group/item">
+                        {/* Timeline summary content */}
                         <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-violet-400 to-fuchsia-400 p-0.5">
                           <div className="w-full h-full rounded-lg bg-black/40 flex items-center justify-center">
                             <i className="fas fa-clock text-lg" />
@@ -666,47 +591,33 @@ export default function StartProjectPage() {
                           <p className="text-white/60 text-sm mb-1">Timeline</p>
                           <p className="font-medium text-lg">{timelines.find(t => t.id === selectedTimeline)?.duration}</p>
                         </div>
-                      </motion.div>
+                      </div>
                     </div>
                   </div>
-                </motion.div>
+                </div>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
+                <motion.a
+                  href="https://calendly.com/ghostforcestudio/30min?month=2025-02"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.02 }}
+                  className="group relative inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-violet-600 to-violet-500 hover:from-violet-500 hover:to-violet-600 rounded-xl font-medium text-lg transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/25"
                 >
-                  <a
-                    href="https://calendly.com/ghostforcestudio/30min?month=2025-02"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group relative inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-violet-600 to-violet-500 hover:from-violet-500 hover:to-violet-600 rounded-xl font-medium text-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-violet-500/25"
-                  >
-                    <span className="relative z-10 flex items-center gap-2">
-                      Schedule Your Free Consultation
-                      <i className="fas fa-arrow-right transition-transform duration-300 group-hover:translate-x-1" />
-                    </span>
-                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-violet-600 to-violet-500 opacity-0 group-hover:opacity-100 blur transition-all duration-300 -z-10" />
-                  </a>
-                </motion.div>
+                  <span className="relative z-10 flex items-center gap-2">
+                    Schedule Your Free Consultation
+                    <i className="fas fa-arrow-right transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-violet-600 to-violet-500 opacity-0 group-hover:opacity-100 blur transition-all duration-300 -z-10" />
+                </motion.a>
               </div>
             ) : (
               <div className="text-center">
-                <motion.h2 
-                  className="text-3xl font-bold mb-6"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                >
+                <h2 className="text-3xl font-bold mb-6">
                   Complete All Steps to Continue
-                </motion.h2>
-                <motion.p 
-                  className="text-white/60"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                >
+                </h2>
+                <p className="text-white/60">
                   Please select your preferences for service, budget, and timeline above
-                </motion.p>
+                </p>
               </div>
             )}
           </div>

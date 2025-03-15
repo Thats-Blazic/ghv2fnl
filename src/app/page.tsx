@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion'
+import { motion, AnimatePresence, useScroll, useSpring, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import Navbar from '@/components/Navbar'
 import { useState } from 'react'
@@ -95,120 +95,167 @@ export default function ProjectsPage() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
-        {/* Light Effects */}
-        <div className="absolute inset-0">
-          {/* Main spotlight */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-violet-500/20 rounded-full blur-[100px] opacity-50" />
+      <section className="relative min-h-screen flex items-center justify-center overflow-x-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Gradient Mesh */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(98,0,255,0.15),transparent_50%)]" />
           
-          {/* Additional light sources */}
-          <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px] opacity-30" />
-          <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-violet-500/10 rounded-full blur-[100px] opacity-30" />
-          
-          {/* Animated floating orbs */}
+          {/* Animated Lines */}
+          <div className="absolute inset-0 overflow-hidden">
+            {[...Array(3)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute h-[1px] w-[100%] left-1/2 -translate-x-1/2 bg-gradient-to-r from-transparent via-violet-500/20 to-transparent"
+                style={{ top: `${30 + i * 20}%` }}
+                animate={{
+                  x: ["-10%", "10%"],
+                  opacity: [0.3, 0.5, 0.3]
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  ease: "easeInOut",
+                  delay: i * 0.5
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Floating Orbs */}
           <motion.div
             animate={{
-              y: [0, -20, 0],
-              opacity: [0.5, 0.8, 0.5],
+              y: [-20, 20],
+              opacity: [0.3, 0.5],
             }}
             transition={{
-              duration: 5,
+              duration: 8,
               repeat: Infinity,
+              repeatType: "reverse",
               ease: "easeInOut"
             }}
-            className="absolute top-1/4 right-1/4 w-24 h-24 bg-violet-400/30 rounded-full blur-[50px]"
+            className="absolute top-1/4 right-1/4 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-violet-600/20 rounded-full blur-[120px]"
           />
-          <motion.div
-            animate={{
-              y: [0, 20, 0],
-              opacity: [0.3, 0.6, 0.3],
-            }}
-            transition={{
-              duration: 7,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="absolute bottom-1/4 left-1/4 w-32 h-32 bg-violet-600/20 rounded-full blur-[60px]"
-          />
-          
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-90" />
+
+          {/* Grid Pattern */}
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_100%)]" />
         </div>
 
-        <div className="relative z-10 w-full h-full flex flex-col items-center justify-center">
-          <div className="text-center max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          {/* Text Content */}
+          <div className="space-y-8 w-full">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="relative inline-block"
+              className="inline-block w-full"
             >
-              <span className="text-sm font-medium text-violet-400 tracking-wider uppercase bg-violet-500/10 px-4 py-2 rounded-full backdrop-blur-sm">
-                Welcome to Ghost Force Studio
+              <span className="relative inline-flex items-center px-6 py-2 rounded-full bg-gradient-to-r from-violet-500/10 to-violet-500/0 border border-violet-500/20">
+                <span className="text-sm font-medium text-violet-400 tracking-wider uppercase">
+                  Welcome to Ghost Force Studio
+                </span>
               </span>
             </motion.div>
 
-            <motion.h1
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="mt-6 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight relative"
+              className="relative w-full"
             >
-              {/* Title light effect */}
-              <div className="absolute -inset-x-20 -inset-y-8 bg-gradient-to-r from-violet-600/0 via-violet-600/10 to-violet-600/0 blur-2xl opacity-50" />
-              
-              <span className="relative">
-                Elevate Your Brand with{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-violet-600">Professional Design</span>
-              </span>
-            </motion.h1>
+              <motion.div
+                animate={{ opacity: [0.5, 0.8, 0.5] }}
+                transition={{ duration: 4, repeat: Infinity }}
+                className="absolute -inset-x-4 sm:-inset-x-8 -inset-y-4 bg-gradient-to-r from-violet-600/20 to-transparent blur-2xl"
+              />
+              <h1 className="relative text-4xl sm:text-6xl md:text-7xl font-bold leading-tight px-2">
+                Let's Make{' '}
+                <motion.div
+                  className="relative inline-block"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 1 }}
+                >
+                  <motion.div
+                    className="absolute -inset-2 bg-violet-600/20 rounded-lg blur-2xl"
+                    animate={{
+                      opacity: [0.3, 0.5, 0.3],
+                      scale: [1, 1.05, 1]
+                    }}
+                    transition={{
+                      duration: 6,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                  <motion.span
+                    className="relative z-10 block"
+                    animate={{
+                      backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
+                    }}
+                    transition={{
+                      duration: 8,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                    style={{
+                      backgroundSize: "200% auto",
+                      WebkitBackgroundClip: "text",
+                      backgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundImage: "linear-gradient(90deg, #a78bfa, #8b5cf6, #7c3aed, #8b5cf6, #a78bfa)"
+                    }}
+                  >
+                    Your Brand Remarkable
+                  </motion.span>
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-violet-500/10 to-transparent"
+                    animate={{
+                      x: ['-200%', '200%']
+                    }}
+                    transition={{
+                      duration: 8,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                </motion.div>
+              </h1>
+            </motion.div>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
-              className="mt-6 text-lg sm:text-xl text-white/60 max-w-2xl mx-auto"
+              className="text-lg sm:text-xl text-white/60 max-w-xl mx-auto px-2"
             >
-              We create stunning visuals that capture attention and drive engagement. From thumbnails to brand identity, we've got you covered.
+              We create stunning visuals that capture attention and drive engagement.
+              From thumbnails to brand identity, we've got you covered.
             </motion.p>
 
-            <div className="mt-10 flex flex-col gap-3 w-full max-w-[400px] mx-auto px-4 sm:px-0">
-              <Link href="/mentorship" className="w-full">
-                <button
-                  className="w-full relative px-6 py-4 rounded-xl bg-violet-600 text-white text-base font-medium overflow-hidden group"
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+              className="flex justify-center px-2"
+            >
+              <Link href="/projects">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="group relative px-6 sm:px-8 py-4 rounded-xl overflow-hidden bg-violet-600 text-white font-medium"
                 >
-                  <div className="absolute inset-0 w-full h-full transition-all duration-300 bg-gradient-to-r from-violet-600 via-violet-500 to-violet-600 opacity-0 group-hover:opacity-100" />
-                  <div className="absolute inset-0 w-2 h-full bg-white/20 skew-x-[45deg] group-hover:-translate-x-32 transition-transform duration-700 ease-in-out" />
+                  <div className="absolute inset-0 w-full h-full transition-all duration-300 bg-gradient-to-r from-violet-600 via-violet-500 to-violet-600 bg-[length:200%_100%] group-hover:bg-[position:100%_0] animate-shimmer" />
                   <div className="relative flex items-center justify-center gap-2">
-                    <span className="group-hover:scale-105 transition-transform duration-300">
-                      Explore Mentorship Plans
+                    View Our Work
+                    <span className="group-hover:translate-x-1 transition-transform">
+                      <i className="fa-solid fa-arrow-right"></i>
                     </span>
-                    <i className="fa-solid fa-arrow-right group-hover:translate-x-1 transition-all duration-300"></i>
                   </div>
-                </button>
+                </motion.button>
               </Link>
-              
-              <button
-                onClick={() => {
-                  const footer = document.getElementById('footer')
-                  if (footer) {
-                    footer.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                  }
-                }}
-                type="button"
-                className="w-full relative px-6 py-4 rounded-xl bg-transparent text-white/80 text-base font-medium overflow-hidden group"
-              >
-                <div className="absolute inset-0 border border-white/10 rounded-xl group-hover:border-violet-500/30 transition-colors duration-300" />
-                <div className="absolute inset-0 bg-violet-500/0 group-hover:bg-violet-500/10 transition-colors duration-300" />
-                <div className="absolute inset-0 w-2 h-full bg-violet-400/20 skew-x-[45deg] -translate-x-32 group-hover:translate-x-[500px] transition-transform duration-700 ease-in-out" />
-                <div className="relative flex items-center justify-center gap-2">
-                  <span className="group-hover:text-white transition-colors duration-300">
-                    Contact for Details
-                  </span>
-                  <i className="fa-solid fa-paper-plane group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300"></i>
-                </div>
-              </button>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -248,7 +295,7 @@ export default function ProjectsPage() {
                     src={brand.logo}
                     alt={brand.name}
                     fill
-                    className="object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                    className="object-contain [filter:brightness(0)_invert(1)] mix-blend-normal opacity-100 group-hover:opacity-70 transition-all duration-300"
                   />
                 </div>
               </div>
@@ -271,7 +318,7 @@ export default function ProjectsPage() {
             >
               <div className="relative aspect-square rounded-2xl overflow-hidden">
                 <Image
-                  src="/wallpaper.jpg"
+                  src="/logotip.jpg"
                   alt="Creative Process"
                   fill
                   className="object-cover object-center"
@@ -368,26 +415,21 @@ export default function ProjectsPage() {
       </section>
 
       {/* Mentorship Section */}
-      <motion.section
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        viewport={{ once: true, margin: "-100px" }}
-        className="relative py-32 overflow-hidden"
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-violet-950/20 to-black" />
-        
+      <section className="relative py-32 overflow-hidden">
+        {/* Enhanced Background with larger grid and better blending */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-b from-black via-violet-950/10 to-black" />
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_2px,transparent_2px),linear-gradient(90deg,rgba(255,255,255,0.015)_2px,transparent_2px)] bg-[size:48px_48px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(98,0,255,0.05),transparent_50%)]" />
+        </div>
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Left Column - Content */}
             <div className="space-y-8">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                className="space-y-4"
-              >
+              <div className="space-y-4">
                 <span className="text-violet-400 font-medium tracking-wide uppercase">
-                  Join Our Community
+                  JOIN OUR COMMUNITY
                 </span>
                 <h2 className="text-4xl md:text-5xl font-bold">
                   Level Up Your Design Skills with{' '}
@@ -399,23 +441,17 @@ export default function ProjectsPage() {
                   Get personalized guidance, real-world projects, and insider tips from industry experts. 
                   Transform your creative journey with our comprehensive mentorship program.
                 </p>
-              </motion.div>
+              </div>
 
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="mt-8 flex flex-col gap-3 w-full max-w-[400px] mx-auto px-4 sm:px-0 sm:flex-row sm:max-w-none sm:w-auto sm:mx-0"
-              >
+              <div className="flex flex-col sm:flex-row gap-4 mt-8">
                 <Link href="/mentorship" className="w-full sm:w-auto">
-                  <button
-                    className="w-full sm:w-auto group relative px-6 py-4 rounded-xl bg-violet-600 text-white text-base font-medium flex items-center justify-center gap-2"
-                  >
-                    Explore Mentorship Plans
-                    <i className="fa-solid fa-arrow-right"></i>
+                  <button className="w-full sm:w-auto px-8 py-4 rounded-xl bg-violet-600 text-white font-medium hover:bg-violet-700 transition-all hover:scale-[1.02] active:scale-[0.98]">
+                    <span className="flex items-center justify-center gap-2">
+                      Explore Mentorship Plans
+                      <i className="fa-solid fa-arrow-right"></i>
+                    </span>
                   </button>
                 </Link>
-                
                 <button
                   onClick={() => {
                     const footer = document.getElementById('footer')
@@ -423,52 +459,54 @@ export default function ProjectsPage() {
                       footer.scrollIntoView({ behavior: 'smooth', block: 'start' })
                     }
                   }}
-                  type="button"
-                  className="w-full sm:w-auto group relative px-6 py-4 rounded-xl bg-[#0A0A0A] border border-white/10 text-white/80 text-base font-medium flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-8 py-4 rounded-xl bg-black/40 backdrop-blur-sm border border-violet-500/20 text-white/80 font-medium hover:bg-black/60 hover:border-violet-500/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
                 >
                   Contact for Details
-                  <i className="fa-solid fa-paper-plane"></i>
                 </button>
-              </motion.div>
+              </div>
             </div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="relative"
-            >
+            {/* Right Column - Features Grid */}
+            <div className="relative">
+              <div className="absolute -inset-4 bg-gradient-to-r from-violet-600/10 to-transparent blur-3xl -z-10" />
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4">
-                  <div className="bg-violet-500/10 border border-violet-500/20 rounded-xl p-6 backdrop-blur-sm">
-                    <i className="fa-solid fa-graduation-cap text-2xl text-violet-400 mb-4"></i>
+                  <div className="bg-black/40 backdrop-blur-sm border border-violet-500/10 rounded-xl p-6 hover:border-violet-500/30 transition-all hover:scale-[1.02] hover:bg-black/50">
+                    <div className="w-12 h-12 bg-violet-500/10 rounded-lg flex items-center justify-center mb-4">
+                      <i className="fa-solid fa-graduation-cap text-2xl text-violet-400"></i>
+                    </div>
                     <h3 className="text-xl font-semibold mb-2">Personalized Learning</h3>
                     <p className="text-white/60">Custom-tailored guidance for your unique creative journey</p>
                   </div>
-                  <div className="bg-violet-500/10 border border-violet-500/20 rounded-xl p-6 backdrop-blur-sm">
-                    <i className="fa-solid fa-users text-2xl text-violet-400 mb-4"></i>
+                  <div className="bg-black/40 backdrop-blur-sm border border-violet-500/10 rounded-xl p-6 hover:border-violet-500/30 transition-all hover:scale-[1.02] hover:bg-black/50">
+                    <div className="w-12 h-12 bg-violet-500/10 rounded-lg flex items-center justify-center mb-4">
+                      <i className="fa-solid fa-users text-2xl text-violet-400"></i>
+                    </div>
                     <h3 className="text-xl font-semibold mb-2">Community Access</h3>
                     <p className="text-white/60">Join a network of passionate designers and creators</p>
                   </div>
                 </div>
                 <div className="space-y-4 mt-8">
-                  <div className="bg-violet-500/10 border border-violet-500/20 rounded-xl p-6 backdrop-blur-sm">
-                    <i className="fa-solid fa-laptop-code text-2xl text-violet-400 mb-4"></i>
+                  <div className="bg-black/40 backdrop-blur-sm border border-violet-500/10 rounded-xl p-6 hover:border-violet-500/30 transition-all hover:scale-[1.02] hover:bg-black/50">
+                    <div className="w-12 h-12 bg-violet-500/10 rounded-lg flex items-center justify-center mb-4">
+                      <i className="fa-solid fa-laptop-code text-2xl text-violet-400"></i>
+                    </div>
                     <h3 className="text-xl font-semibold mb-2">Real Projects</h3>
                     <p className="text-white/60">Work on actual client projects with expert guidance</p>
                   </div>
-                  <div className="bg-violet-500/10 border border-violet-500/20 rounded-xl p-6 backdrop-blur-sm">
-                    <i className="fa-solid fa-certificate text-2xl text-violet-400 mb-4"></i>
+                  <div className="bg-black/40 backdrop-blur-sm border border-violet-500/10 rounded-xl p-6 hover:border-violet-500/30 transition-all hover:scale-[1.02] hover:bg-black/50">
+                    <div className="w-12 h-12 bg-violet-500/10 rounded-lg flex items-center justify-center mb-4">
+                      <i className="fa-solid fa-certificate text-2xl text-violet-400"></i>
+                    </div>
                     <h3 className="text-xl font-semibold mb-2">Certification</h3>
                     <p className="text-white/60">Earn recognition for your accomplished skills</p>
                   </div>
                 </div>
               </div>
-              <div className="absolute -inset-4 bg-gradient-to-r from-violet-600/20 to-transparent blur-3xl -z-10" />
-            </motion.div>
+            </div>
           </div>
         </div>
-      </motion.section>
+      </section>
     </main>
   )
 } 

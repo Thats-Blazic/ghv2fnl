@@ -28,7 +28,7 @@ const teamMembers = [
     role: "Design Lead & Founder",
     experience: "6+ years in Design",
     image: "/projects/ognjen.jpg",
-    description: "Specialized in branding and graphic  design with over 500 successful projects.",
+    description: "Specialized in branding and Graphic  Design with over 500 successful projects.",
     gradient: "from-violet-500 to-fuchsia-500",
     social: {
       whatsapp: "https://wa.me/+381628169744",
@@ -40,7 +40,7 @@ const teamMembers = [
     role: "Designer & Web Developer",
     experience: "6+ years in Development",
     image: "/projects/radisic.jpg",
-    description: "Expert in Web Development and App Development.",
+    description: "Expert in Graphic Design and Web Development.",
     gradient: "from-blue-500 to-violet-500",
     social: {
       whatsapp: "https://wa.me/+38765052080",
@@ -846,10 +846,8 @@ export default function MentorshipPage() {
               viewport={{ once: true }}
               className="mt-16 text-center"
             >
-              <div className="inline-flex items-center gap-4 px-6 py-3 bg-violet-600/10 rounded-xl border border-violet-500/20">
-                <svg className="w-5 h-5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+              <div className="inline-flex items-center gap-4 px-6 py-3 bg-violet-600/10 rounded-xl border border-violet-500/20 backdrop-blur-sm">
+                <i className="fa-solid fa-circle-info text-violet-400 text-lg"></i>
                 <span className="text-white/60">All plans include access to our Video Tutorials</span>
               </div>
             </motion.div>

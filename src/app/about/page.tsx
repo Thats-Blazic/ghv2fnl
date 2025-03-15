@@ -441,12 +441,54 @@ const AnimatedCounter = ({ value }: { value: string }) => {
   );
 };
 
+// Add this new component for client-side particles
+const AnimatedParticles = () => {
+  const [particles, setParticles] = useState([]);
+  
+  useEffect(() => {
+    // Generate particles only on client side
+    const newParticles = Array.from({ length: 15 }, () => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      delay: Math.random() * 3
+    }));
+    setParticles(newParticles);
+  }, []);
+
+  return (
+    <div className="absolute inset-0">
+      {particles.map((particle, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-1 h-1 bg-violet-400/30 rounded-full"
+          style={{
+            left: particle.left,
+            top: particle.top
+          }}
+          animate={{
+            scale: [0, 1, 0],
+            opacity: [0, 1, 0],
+            y: [0, -20]
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            delay: particle.delay,
+            ease: "easeInOut"
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
 export default function AboutPage() {
   const containerRef = useRef<HTMLDivElement>(null)
   const timelineRef = useRef<HTMLDivElement>(null)
   const [activeStep, setActiveStep] = useState<number | null>(0)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [hasScrolled, setHasScrolled] = useState(false);
+  const [playingVideo, setPlayingVideo] = useState<number | null>(null);
 
   const { scrollYProgress } = useScroll({
     target: timelineRef,
@@ -597,6 +639,27 @@ export default function AboutPage() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Function to handle video play/pause
+  const toggleVideo = (index: number, videoElement: HTMLVideoElement) => {
+    if (playingVideo === index) {
+      videoElement.pause();
+      setPlayingVideo(null);
+    } else {
+      // Pause any currently playing video
+      if (playingVideo !== null) {
+        const prevVideo = document.querySelector(`#video-${playingVideo}`) as HTMLVideoElement;
+        if (prevVideo) {
+          prevVideo.pause();
+        }
+      }
+      // Enable sound and play
+      videoElement.muted = false;
+      videoElement.volume = 1;
+      videoElement.play();
+      setPlayingVideo(index);
+    }
+  };
 
   return (
     <main className="min-h-screen bg-black text-white overflow-x-hidden">
@@ -1126,36 +1189,14 @@ export default function AboutPage() {
           </div>
 
           {/* Animated particles */}
-          <div className="absolute inset-0">
-            {[...Array(20)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-1 h-1 bg-violet-400/30 rounded-full"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`
-                }}
-                animate={{
-                  scale: [0, 1, 0],
-                  opacity: [0, 1, 0],
-                  y: [0, -20]
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  delay: Math.random() * 4,
-                  ease: "easeInOut"
-                }}
-              />
-            ))}
-          </div>
+          <AnimatedParticles />
 
           {/* Glowing circles */}
           <div className="absolute inset-0">
             {[...Array(3)].map((_, i) => (
               <motion.div
                 key={i}
-                className="absolute w-32 h-32 bg-violet-500/10 rounded-full"
+                className="absolute w-64 h-64 bg-violet-500/5 rounded-full"
                 style={{
                   left: `${25 + i * 25}%`,
                   top: `${30 + (i % 2) * 40}%`
@@ -1292,6 +1333,158 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Video Testimonials Section */}
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(98,0,255,0.15),transparent_70%)]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black" />
+          <div className="absolute inset-0 bg-grid-white/[0.02] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <motion.span 
+              className="inline-block px-4 py-1.5 bg-violet-600/10 rounded-full text-violet-400 text-sm font-medium mb-6 border border-violet-500/20"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+            >
+              <i className="fas fa-video mr-2" />
+              CLIENT EXPERIENCES
+            </motion.span>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-violet-400 to-white"
+            >
+              Don't Just Take Our <br />Word For It
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-lg text-white/60 max-w-2xl mx-auto"
+            >
+              The success of our students is our greatest achievement and our best advertisement.
+              Listen to what people who have multiplied their investment in our courses and mentorship have to say.
+            </motion.p>
+          </div>
+
+          {/* Video Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto">
+            {[
+              {
+                id: 1,
+                video: "/test/ramiz.mp4",
+                name: "Ramiz T.",
+                username: "@motodnevnik"
+              },
+              {
+                id: 2,
+                video: "/test/pero.mp4",
+                name: "Petar A.",
+                username: "@petarcuts"
+              },
+              {
+                id: 3,
+                video: "/test/daca.mp4",
+                name: "Danilo K..",
+                username: "@danilokaranfilovic"
+              },
+              {
+                id: 4,
+                video: "/test/crni.mp4",
+                name: "Jeso J.",
+                username: "@jesoe2112"
+              }
+            ].map((student) => (
+              <motion.div
+                key={student.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: student.id * 0.1 }}
+                className="group relative aspect-[9/16] rounded-2xl overflow-hidden bg-violet-900/20 border border-violet-500/20"
+              >
+                {/* Video Element */}
+                <video
+                  id={`video-${student.id}`}
+                  src={student.video}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  playsInline
+                  onEnded={(e) => {
+                    const video = e.target as HTMLVideoElement;
+                    video.pause();
+                    setPlayingVideo(null);
+                  }}
+                />
+                
+                {/* Dark Overlay when not playing */}
+                <div className={`absolute inset-0 bg-black/60 transition-opacity duration-300 ${playingVideo === student.id ? 'opacity-0' : 'opacity-100'}`} />
+                
+                {/* Gradient Overlay - always visible */}
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/80" />
+                
+                {/* Play Button Container */}
+                <div 
+                  className="absolute inset-0 flex items-center justify-center cursor-pointer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const video = document.querySelector(`#video-${student.id}`) as HTMLVideoElement;
+                    if (video) {
+                      toggleVideo(student.id, video);
+                    }
+                  }}
+                >
+                  {/* Play Button with Ripple Effect */}
+                  <div className={`relative group-hover:scale-110 transition-all duration-300 ${playingVideo === student.id ? 'opacity-0' : 'opacity-100'}`}>
+                    {/* Outer Ring */}
+                    <div className="absolute -inset-4 bg-violet-500/20 rounded-full blur-md animate-pulse" />
+                    {/* Play Button Background */}
+                    <div className="relative w-16 h-16 rounded-full bg-violet-600/90 flex items-center justify-center backdrop-blur-sm border border-violet-400/30 shadow-lg shadow-violet-600/20">
+                      <i className="fas fa-play text-white text-2xl ml-1" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Pause Button - Only visible when playing */}
+                {playingVideo === student.id && (
+                  <div 
+                    className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer bg-black/40"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const video = document.querySelector(`#video-${student.id}`) as HTMLVideoElement;
+                      if (video) {
+                        toggleVideo(student.id, video);
+                      }
+                    }}
+                  >
+                    <div className="w-16 h-16 rounded-full bg-violet-600/90 flex items-center justify-center backdrop-blur-sm border border-violet-400/30 shadow-lg">
+                      <i className="fas fa-pause text-white text-2xl" />
+                    </div>
+                  </div>
+                )}
+
+                {/* Student Info */}
+                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-violet-600/30 flex items-center justify-center backdrop-blur-sm border border-violet-500/30">
+                      <i className="fas fa-user text-violet-300" />
+                    </div>
+                    <div>
+                      <p className="text-white font-medium">{student.name}</p>
+                      <p className="text-sm text-violet-300">{student.username}</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section className="py-24 relative overflow-hidden">
         {/* Enhanced Background Effects */}
@@ -1332,29 +1525,7 @@ export default function AboutPage() {
           </div>
 
           {/* Glowing dots */}
-          <div className="absolute inset-0">
-            {[...Array(15)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-1 h-1 bg-violet-400/30 rounded-full"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`
-                }}
-                animate={{
-                  scale: [0, 1, 0],
-                  opacity: [0, 1, 0],
-                  y: [0, -20]
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  delay: Math.random() * 3,
-                  ease: "easeInOut"
-                }}
-              />
-            ))}
-          </div>
+          <AnimatedParticles />
 
           {/* Glowing circles */}
           <div className="absolute inset-0">

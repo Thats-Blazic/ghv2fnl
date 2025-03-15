@@ -114,6 +114,51 @@ const testImages = [
     category: "Thumbnails"
   },
   {
+    src: "/projects/thumb/th1.jpg",
+    alt: "Crypto Investment Guide",
+    category: "Thumbnails"
+  },
+  {
+    src: "/projects/thumb/th2.jpg",
+    alt: "Fitness Journey",
+    category: "Thumbnails"
+  },
+  {
+    src: "/projects/thumb/th3.jpg",
+    alt: "Pro Gaming Tips",
+    category: "Thumbnails"
+  },
+  {
+    src: "/projects/thumb/portfolio0.jpg",
+    alt: "Digital Art Masterclass",
+    category: "Thumbnails"
+  },
+  {
+    src: "/projects/thumb/portfolio7.jpg",
+    alt: "Social Media Growth",
+    category: "Thumbnails"
+  },
+  {
+    src: "/projects/thumb/portfolio9.jpg",
+    alt: "Music Production",
+    category: "Thumbnails"
+  },
+  {
+    src: "/projects/thumb/portfolio15.png",
+    alt: "Video Editing Pro",
+    category: "Thumbnails"
+  },
+  {
+    src: "/projects/thumb/Thumbnail 4.jpg",
+    alt: "3D Modeling Course",
+    category: "Thumbnails"
+  },
+  {
+    src: "/projects/thumb/Thumbnail 19.jpg",
+    alt: "UI/UX Design Workshop",
+    category: "Thumbnails"
+  },
+  {
     src: "/projects/thumb/stba.jpg",
     alt: "",
     category: "Banners"
@@ -141,6 +186,36 @@ const testImages = [
   {
     src: "/projects/thumb/badem.jpg",
     alt: "",
+    category: "Banners"
+  },
+  {
+    src: "/projects/thumb/smergut.jpg",
+    alt: "Gaming Tournament Banner",
+    category: "Banners"
+  },
+  {
+    src: "/projects/thumb/pacho.jpg",
+    alt: "Esports Championship",
+    category: "Banners"
+  },
+  {
+    src: "/projects/thumb/isho.jpg",
+    alt: "Stream Overlay Banner",
+    category: "Banners"
+  },
+  {
+    src: "/projects/thumb/kad.jpg",
+    alt: "Gaming Event Cover",
+    category: "Banners"
+  },
+  {
+    src: "/projects/thumb/st.jpg",
+    alt: "Twitch Channel Banner",
+    category: "Banners"
+  },
+  {
+    src: "/projects/thumb/face.jpg",
+    alt: "YouTube Gaming Banner",
     category: "Banners"
   }
 ]
@@ -311,7 +386,7 @@ export default function ProjectsPage() {
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               transition={{ type: "spring", damping: 25 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-5xl bg-gradient-to-br from-[#0a0a0a] to-[#121212] border border-violet-500/30 rounded-2xl overflow-hidden cursor-default shadow-[0_0_50px_rgba(139,92,246,0.15)]"
+              className="relative w-full max-w-5xl bg-gradient-to-br from-[#0a0a0a] to-[#03040a] border border-violet-500/90 rounded-2xl overflow-hidden cursor-default shadow-[0_0_50px_rgba(139,92,246,0.15)]"
             >
               {/* Close button - top right */}
               <button 

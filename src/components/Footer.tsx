@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
 
-const ContactForm = dynamic(() => import('@/components/ContactForm'), {
+const ContactForm = dynamic(() => import('../components/ContactForm'), {
   loading: () => <div className="animate-pulse bg-violet-600/10 rounded-xl h-[400px]" />
 })
 
