@@ -441,24 +441,50 @@ const AnimatedCounter = ({ value }: { value: string }) => {
   );
 };
 
-// Prvo definiši interface za česticu
-interface Particle {
-  left: string;
-  top: string;
-  delay: number;
-}
+// Dodaj AnimatedParticles komponentu
+const AnimatedParticles = () => {
+  interface Particle {
+    left: string;
+    top: string;
+    delay: number;
+  }
 
-// Zatim koristi taj tip pri definisanju state-a
-const [particles, setParticles] = useState<Particle[]>([]);
+  const [particles, setParticles] = useState<Particle[]>([]);
 
-useEffect(() => {
-  const newParticles = Array.from({ length: 50 }, () => ({
-    left: `${Math.random() * 100}%`,
-    top: `${Math.random() * 100}%`,
-    delay: Math.random() * 3
-  }));
-  setParticles(newParticles);
-}, []);
+  useEffect(() => {
+    const newParticles = Array.from({ length: 50 }, () => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      delay: Math.random() * 3
+    }));
+    setParticles(newParticles);
+  }, []);
+
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      {particles.map((particle, i) => (
+        <motion.div
+          key={i}
+          className="absolute h-1 w-1 bg-violet-500 rounded-full"
+          style={{
+            left: particle.left,
+            top: particle.top
+          }}
+          animate={{
+            opacity: [0, 1, 0],
+            scale: [0, 1, 0]
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            delay: particle.delay,
+            ease: "easeInOut"
+          }}
+        />
+      ))}
+    </div>
+  );
+};
 
 export default function AboutPage() {
   const containerRef = useRef<HTMLDivElement>(null)
