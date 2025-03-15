@@ -441,14 +441,15 @@ const AnimatedCounter = ({ value }: { value: string }) => {
   );
 };
 
-// Dodaj AnimatedParticles komponentu
-const AnimatedParticles = () => {
-  interface Particle {
-    left: string;
-    top: string;
-    delay: number;
-  }
+// Prvo definišemo interface za česticu van komponente
+interface Particle {
+  left: string;
+  top: string;
+  delay: number;
+}
 
+const AnimatedParticles = () => {
+  // Eksplicitno definišemo tip za useState
   const [particles, setParticles] = useState<Particle[]>([]);
 
   useEffect(() => {
@@ -1303,7 +1304,7 @@ export default function AboutPage() {
                           {[1, 2, 3, 4, 5].map((star) => (
                             <i key={star} className="fas fa-star text-yellow-500 text-xs" />
                           ))}
-                    </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1324,7 +1325,7 @@ export default function AboutPage() {
               className="group inline-flex items-center gap-2 px-8 py-4 bg-violet-600 hover:bg-violet-700 rounded-xl font-medium text-lg transition-all duration-300 hover:scale-105"
             >
               Start Your Project
-            <motion.span 
+              <motion.span 
                 className="inline-block"
                 initial={{ x: 0 }}
                 whileHover={{ x: 5 }}
