@@ -1395,7 +1395,7 @@ export default function AboutPage() {
               {
                 id: 3,
                 video: "/test/daca.mp4",
-                name: "Danilo K..",
+                name: "Danilo K.",
                 username: "@danilokaranfilovic"
               },
               {
