@@ -441,46 +441,24 @@ const AnimatedCounter = ({ value }: { value: string }) => {
   );
 };
 
-// Add this new component for client-side particles
-const AnimatedParticles = () => {
-  const [particles, setParticles] = useState([]);
-  
-  useEffect(() => {
-    // Generate particles only on client side
-    const newParticles = Array.from({ length: 15 }, () => ({
-      left: `${Math.random() * 100}%`,
-      top: `${Math.random() * 100}%`,
-      delay: Math.random() * 3
-    }));
-    setParticles(newParticles);
-  }, []);
+// Prvo definiši interface za česticu
+interface Particle {
+  left: string;
+  top: string;
+  delay: number;
+}
 
-  return (
-    <div className="absolute inset-0">
-      {particles.map((particle, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1 h-1 bg-violet-400/30 rounded-full"
-          style={{
-            left: particle.left,
-            top: particle.top
-          }}
-          animate={{
-            scale: [0, 1, 0],
-            opacity: [0, 1, 0],
-            y: [0, -20]
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            delay: particle.delay,
-            ease: "easeInOut"
-          }}
-        />
-      ))}
-    </div>
-  );
-};
+// Zatim koristi taj tip pri definisanju state-a
+const [particles, setParticles] = useState<Particle[]>([]);
+
+useEffect(() => {
+  const newParticles = Array.from({ length: 50 }, () => ({
+    left: `${Math.random() * 100}%`,
+    top: `${Math.random() * 100}%`,
+    delay: Math.random() * 3
+  }));
+  setParticles(newParticles);
+}, []);
 
 export default function AboutPage() {
   const containerRef = useRef<HTMLDivElement>(null)
